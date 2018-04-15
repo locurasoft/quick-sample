@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <!--<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">-->
+        <!--<property name="entityManagerFactory" ref="entityManagerFactory" />-->
+    <!--</bean>-->
+
+    <!--<bean id="entityManagerFactory"-->
+          <!--class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
+        <!--<property name="dataSource" ref="dataSource" />-->
+        <!--<property name="packagesToScan" value="com.javacodegeeks.spring.jpa" />-->
+        <!--<property name="jpaVendorAdapter">-->
+            <!--<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">-->
+                <!--<property name="database" value="HSQL" />-->
+                <!--<property name="generateDdl" value="true" />-->
+            <!--</bean>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<jdbc:initialize-database data-source="dataSource">-->
+        <!--<jdbc:script location="classpath:data.sql" />-->
+    <!--</jdbc:initialize-database>-->
+
+    <!--<jdbc:embedded-database id="dataSource" type="HSQL" />-->
+
+    <context:annotation-config/>
+
+    <bean id="settingsResource" class="com.locurasoft.samplemanager.SettingsResource">
+        <property name="searchPaths">
+            <list>
+                <value>c:/Users/pasca/Documents/Ableton/Factory Packs</value>
+            </list>
+        </property>
+        <property name="fileEndings">
+            <list>
+                <value>wav</value>
+                <value>aif</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="fileService" class="com.locurasoft.samplemanager.FileService"/>
+    <bean id="sampleService" class="com.locurasoft.samplemanager.SampleService"/>
+    <bean id="mainController" class="com.locurasoft.samplemanager.MainController"/>
+
+</beans>
