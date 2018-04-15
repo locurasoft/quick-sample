@@ -1,5 +1,7 @@
-package com.locurasoft.samplemanager;
+package com.locurasoft.samplemanager.service;
 
+import com.locurasoft.samplemanager.domain.Sample;
+import com.locurasoft.samplemanager.service.SettingsResource;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

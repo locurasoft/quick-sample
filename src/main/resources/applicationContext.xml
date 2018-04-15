@@ -30,7 +30,7 @@
 
     <context:annotation-config/>
 
-    <bean id="settingsResource" class="com.locurasoft.samplemanager.SettingsResource">
+    <bean id="settingsResource" class="com.locurasoft.samplemanager.service.SettingsResource">
         <property name="searchPaths">
             <list>
                 <value>c:/Users/pasca/Documents/Ableton/Factory Packs</value>
@@ -44,8 +44,8 @@
         </property>
     </bean>
 
-    <bean id="fileService" class="com.locurasoft.samplemanager.FileService"/>
-    <bean id="sampleService" class="com.locurasoft.samplemanager.SampleService"/>
-    <bean id="mainController" class="com.locurasoft.samplemanager.MainController"/>
+    <bean id="fileService" class="com.locurasoft.samplemanager.service.FileService"/>
+    <bean id="sampleService" class="com.locurasoft.samplemanager.service.SampleService"/>
+    <bean id="mainController" class="com.locurasoft.samplemanager.controller.MainController"/>
 
 </beans>

@@ -1,5 +1,6 @@
-package com.locurasoft.samplemanager;
+package com.locurasoft.samplemanager.service;
 
+import com.locurasoft.samplemanager.domain.Category;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

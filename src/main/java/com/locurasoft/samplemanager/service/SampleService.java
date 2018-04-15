@@ -1,4 +1,4 @@
-package com.locurasoft.samplemanager;
+package com.locurasoft.samplemanager.service;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;

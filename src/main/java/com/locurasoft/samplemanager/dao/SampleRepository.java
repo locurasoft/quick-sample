@@ -1,5 +1,6 @@
-package com.locurasoft.samplemanager;
+package com.locurasoft.samplemanager.dao;
 
+import com.locurasoft.samplemanager.domain.Sample;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.locurasoft.samplemanager;
+package com.locurasoft.samplemanager.domain;
 
 public enum Category {
     Kicks,

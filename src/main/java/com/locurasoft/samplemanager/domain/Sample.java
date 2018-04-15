@@ -1,5 +1,6 @@
-package com.locurasoft.samplemanager;
+package com.locurasoft.samplemanager.domain;
 
+import com.locurasoft.samplemanager.domain.Category;
 import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Component;
 

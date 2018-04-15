@@ -1,7 +1,7 @@
-package com.locurasoft.samplemanager;
+package com.locurasoft.samplemanager.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import com.locurasoft.samplemanager.service.SampleService;
+import com.locurasoft.samplemanager.service.SettingsResource;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
