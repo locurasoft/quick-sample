@@ -18,109 +18,88 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.locurasoft.samplemanager.controller.MainController">
-  <children>
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.locurasoft.samplemanager.controller.MainController">
     <MenuBar VBox.vgrow="NEVER">
-      <menus>
         <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
+            <MenuItem mnemonicParsing="false" text="New"/>
+            <MenuItem mnemonicParsing="false" text="Open…"/>
+            <Menu mnemonicParsing="false" text="Open Recent"/>
+            <SeparatorMenuItem mnemonicParsing="false"/>
+            <MenuItem mnemonicParsing="false" text="Close"/>
+            <MenuItem mnemonicParsing="false" text="Save"/>
+            <MenuItem mnemonicParsing="false" text="Save As…"/>
+            <MenuItem mnemonicParsing="false" text="Revert"/>
+            <SeparatorMenuItem mnemonicParsing="false"/>
+            <MenuItem mnemonicParsing="false" text="Preferences…"/>
+            <SeparatorMenuItem mnemonicParsing="false"/>
+            <MenuItem mnemonicParsing="false" text="Quit"/>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
+            <MenuItem mnemonicParsing="false" text="Undo"/>
+            <MenuItem mnemonicParsing="false" text="Redo"/>
+            <SeparatorMenuItem mnemonicParsing="false"/>
+            <MenuItem mnemonicParsing="false" text="Cut"/>
+            <MenuItem mnemonicParsing="false" text="Copy"/>
+            <MenuItem mnemonicParsing="false" text="Paste"/>
+            <MenuItem mnemonicParsing="false" text="Delete"/>
+            <SeparatorMenuItem mnemonicParsing="false"/>
+            <MenuItem mnemonicParsing="false" text="Select All"/>
+            <MenuItem mnemonicParsing="false" text="Unselect All"/>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
-          </items>
+            <MenuItem mnemonicParsing="false" text="About MyHelloApp"/>
         </Menu>
-      </menus>
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-      <children>
-        <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-          <font>
-            <Font size="18.0" />
-          </font>
+        <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;"
+               text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+            <font>
+                <Font size="18.0"/>
+            </font>
         </Label>
-            <BorderPane prefHeight="442.0" prefWidth="732.0">
-               <left>
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                     <content>
-                        <Accordion>
-                          <panes>
+        <BorderPane prefHeight="442.0" prefWidth="732.0">
+            <left>
+                <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <Accordion>
+                        <panes>
                             <TitledPane animated="false" text="Categories">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <ListView fx:id="categories" prefHeight="179.0" prefWidth="200.0" />
-                                       </children>
-                                    </AnchorPane>
-                              </content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                            prefWidth="200.0">
+                                    <ListView fx:id="categories" prefHeight="179.0" prefWidth="200.0"/>
+                                </AnchorPane>
                             </TitledPane>
                             <TitledPane animated="false" text="untitled 2">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                              </content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                            prefWidth="200.0"/>
                             </TitledPane>
                             <TitledPane animated="false" text="untitled 3">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                              </content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                            prefWidth="200.0"/>
                             </TitledPane>
-                          </panes>
-                        </Accordion>
-                     </content>
-                  </ScrollPane>
-               </left>
-               <top>
-                  <Pane prefHeight="73.0" prefWidth="732.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Button layoutX="34.0" layoutY="24.0" mnemonicParsing="false" onAction="#rescan" text="%key.rescan" />
-                        <Button layoutX="140.0" layoutY="24.0" mnemonicParsing="false" onAction="#configure" text="%key.configure" />
-                        <Slider layoutX="565.0" layoutY="17.0" onDragDone="#volumeChange" />
-                        <Label layoutX="600.0" layoutY="41.0" text="%key.volume" textAlignment="CENTER" />
-                        <TextField layoutX="393.0" layoutY="11.0" onAction="#filter" />
-                        <Label layoutX="440.0" layoutY="41.0" text="%key.filter" textAlignment="CENTER" />
-                     </children>
-                  </Pane>
-               </top>
-               <center>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <ListView fx:id="samples" prefHeight="200.0" prefWidth="200.0" />
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </ScrollPane>
-               </center>
-            </BorderPane>
-      </children>
+                        </panes>
+                    </Accordion>
+                </ScrollPane>
+            </left>
+            <top>
+                <Pane prefHeight="73.0" prefWidth="732.0" BorderPane.alignment="CENTER">
+                    <Button layoutX="34.0" layoutY="24.0" mnemonicParsing="false" onAction="#rescan"
+                            text="%key.rescan"/>
+                    <Button layoutX="140.0" layoutY="24.0" mnemonicParsing="false" onAction="#configure"
+                            text="%key.configure"/>
+                    <Slider layoutX="565.0" layoutY="17.0" onDragDone="#volumeChange"/>
+                    <Label layoutX="600.0" layoutY="41.0" text="%key.volume" textAlignment="CENTER"/>
+                    <TextField layoutX="393.0" layoutY="11.0" onAction="#filter"/>
+                    <Label layoutX="440.0" layoutY="41.0" text="%key.filter" textAlignment="CENTER"/>
+                </Pane>
+            </top>
+            <center>
+                <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                        <ListView fx:id="samples" prefHeight="200.0" prefWidth="200.0"/>
+                    </AnchorPane>
+                </ScrollPane>
+            </center>
+        </BorderPane>
     </AnchorPane>
-  </children>
 </VBox>
