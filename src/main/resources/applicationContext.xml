@@ -30,20 +30,11 @@
             </props>
         </property>
         <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <!--<property name="database" value="DERBY"/>-->
-                <!--<property name="generateDdl" value="true"/>-->
-            </bean>
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
         </property>
     </bean>
 
     <jpa:repositories base-package="com.locurasoft.samplemanager.dao" />
-
-    <!--<jdbc:initialize-database data-source="dataSource">-->
-        <!--<jdbc:script location="classpath:data.sql"/>-->
-    <!--</jdbc:initialize-database>-->
-
-    <!--<jdbc:embedded-database id="dataSource" type="DERBY" />-->
 
     <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
         <property name="driverClassName" value="org.sqlite.JDBC"/>
@@ -70,7 +61,6 @@
         </property>
     </bean>
 
-    <!--<bean id="sampleRepository" class="com.locurasoft.samplemanager.dao.MemorySampleRepositoryImpl"/>-->
     <bean id="categorySampleAnalyzer" class="com.locurasoft.samplemanager.domain.analyzer.CategorySampleAnalyzer"/>
     <bean id="sampleService" class="com.locurasoft.samplemanager.service.SampleService"/>
     <bean id="mainController" class="com.locurasoft.samplemanager.controller.MainController"/>
