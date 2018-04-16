@@ -10,6 +10,12 @@
 
     <properties>
         <spring.version>5.0.5.RELEASE</spring.version>
+        <maven.checkstyle.plugin>2.7</maven.checkstyle.plugin>
+        <maven.pmd.plugin>2.7.1</maven.pmd.plugin>
+        <maven.site.plugin>3.1</maven.site.plugin>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.findbugs.plugin>3.0.1</maven.findbugs.plugin>
     </properties>
 
     <dependencies>
@@ -32,11 +38,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
@@ -66,6 +67,12 @@
             <scope>runtime</scope>
         </dependency>
 
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.10</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -77,6 +84,45 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>verify-style</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <logViolationsToConsole>true</logViolationsToConsole>
+                    <!--<checkstyleRules>-->
+                        <!--<module name="Checker">-->
+
+                            <!--&lt;!&ndash; Checks for Size Violations.                    &ndash;&gt;-->
+                            <!--&lt;!&ndash; See http://checkstyle.sf.net/config_sizes.html &ndash;&gt;-->
+                            <!--<module name="FileLength">-->
+                                <!--<property name="max" value="3500" />-->
+                                <!--<property name="fileExtensions" value="java"/>-->
+                            <!--</module>-->
+
+                            <!--&lt;!&ndash; Checks for whitespace                               &ndash;&gt;-->
+                            <!--&lt;!&ndash; See http://checkstyle.sf.net/config_whitespace.html &ndash;&gt;-->
+                            <!--<module name="FileTabCharacter"/>-->
+
+                            <!--<module name="TreeWalker">-->
+                                <!--<module name="StaticVariableName"/>-->
+                                <!--<module name="TypeName">-->
+                                    <!--<property name="format" value="^_?[A-Z][a-zA-Z0-9]*$"/>-->
+                                <!--</module>-->
+                            <!--</module>-->
+                        <!--</module>-->
+                    <!--</checkstyleRules>-->
                 </configuration>
             </plugin>
         </plugins>

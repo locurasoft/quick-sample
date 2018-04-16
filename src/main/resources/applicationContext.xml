@@ -7,30 +7,30 @@
            http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
     <!--<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">-->
-        <!--<property name="entityManagerFactory" ref="entityManagerFactory" />-->
+    <!--<property name="entityManagerFactory" ref="entityManagerFactory" />-->
     <!--</bean>-->
 
     <!--<bean id="entityManagerFactory"-->
-          <!--class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
-        <!--<property name="dataSource" ref="dataSource" />-->
-        <!--<property name="packagesToScan" value="com.javacodegeeks.spring.jpa" />-->
-        <!--<property name="jpaVendorAdapter">-->
-            <!--<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">-->
-                <!--<property name="database" value="HSQL" />-->
-                <!--<property name="generateDdl" value="true" />-->
-            <!--</bean>-->
-        <!--</property>-->
+    <!--class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
+    <!--<property name="dataSource" ref="dataSource" />-->
+    <!--<property name="packagesToScan" value="com.javacodegeeks.spring.jpa" />-->
+    <!--<property name="jpaVendorAdapter">-->
+    <!--<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">-->
+    <!--<property name="database" value="HSQL" />-->
+    <!--<property name="generateDdl" value="true" />-->
+    <!--</bean>-->
+    <!--</property>-->
     <!--</bean>-->
 
     <!--<jdbc:initialize-database data-source="dataSource">-->
-        <!--<jdbc:script location="classpath:data.sql" />-->
+    <!--<jdbc:script location="classpath:data.sql" />-->
     <!--</jdbc:initialize-database>-->
 
     <!--<jdbc:embedded-database id="dataSource" type="HSQL" />-->
 
     <context:annotation-config/>
 
-    <bean id="settingsResource" class="com.locurasoft.samplemanager.service.SettingsResource">
+    <bean id="settings" class="com.locurasoft.samplemanager.domain.Settings">
         <property name="searchPaths">
             <list>
                 <value>c:/Users/pasca/Documents/Ableton/Factory Packs</value>
@@ -44,7 +44,8 @@
         </property>
     </bean>
 
-    <bean id="fileService" class="com.locurasoft.samplemanager.service.FileService"/>
+    <bean id="sampleRepository" class="com.locurasoft.samplemanager.dao.MemorySampleRepositoryImpl"/>
+    <bean id="categorySampleAnalyzer" class="com.locurasoft.samplemanager.domain.analyzer.CategorySampleAnalyzer"/>
     <bean id="sampleService" class="com.locurasoft.samplemanager.service.SampleService"/>
     <bean id="mainController" class="com.locurasoft.samplemanager.controller.MainController"/>
 

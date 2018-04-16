@@ -1,6 +1,7 @@
 package com.locurasoft.samplemanager.domain;
 
-import com.locurasoft.samplemanager.domain.Category;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Component;
 
@@ -8,35 +9,46 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Component("sampleResource")
+@Component("sample")
 public class Sample {
 
+    public static class Factory {
+        public static Sample newSample(File file) throws IOException {
+            Sample sample = new Sample();
+            sample.setFilePath(file.getAbsolutePath());
+            sample.setName(file.getName());
+            FileInputStream fileInputStream = new FileInputStream(file);
+            sample.setFileHash(DigestUtils.md5Hex(IOUtils.toByteArray(fileInputStream)));
+            fileInputStream.close();
+            return sample;
+        }
+    }
+
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private File file;
+    private String filePath;
     private List<String> tags;
-    private Category category;
+    private Settings.Category category;
     private String name;
-    private long hashCode;
+    private String fileHash;
 
-    public long getHashCode() {
-        return hashCode;
+    public Long getId() {
+        return id;
     }
 
-    public void setHashCode(long hashCode) {
-        this.hashCode = hashCode;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public File getFile() {
-        return file;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     public List<String> getTags() {
@@ -47,11 +59,11 @@ public class Sample {
         this.tags = tags;
     }
 
-    public Category getCategory() {
+    public Settings.Category getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(Settings.Category category) {
         this.category = category;
     }
 
@@ -61,5 +73,37 @@ public class Sample {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getFileHash() {
+        return fileHash;
+    }
+
+    public void setFileHash(String fileHash) {
+        this.fileHash = fileHash;
+    }
+
+    @Override
+    public String toString() {
+        return "Sample{" + "name='" + name + '\'' + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Sample sample = (Sample) o;
+        return Objects.equals(name, sample.name) &&
+                Objects.equals(fileHash, sample.fileHash);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name, fileHash);
     }
 }
