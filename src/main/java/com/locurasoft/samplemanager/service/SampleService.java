@@ -37,8 +37,8 @@ public class SampleService implements ISampleService {
                 while (iterator.hasNext()) {
                     File file = iterator.next();
                     Sample sample = newSample(file);
-                    if (sampleRepository.exists(sample)) {
-                        sample = sampleRepository.findBySample(sample);
+                    if (sampleRepository.existsByFileHash(sample.getFileHash())) {
+                        sample = sampleRepository.findByFileHash(sample.getFileHash());
                     } else {
                         sampleRepository.save(sample);
                         System.out.println("Saving sample " + sample.getName());

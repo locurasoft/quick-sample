@@ -93,6 +93,7 @@ public final class MainController {
                 return cell;
             }
         });
+        System.out.println("Size: " + sampleService.getSamples().size());
         samples.setItems(observableList(sampleService.getSamples()));
         samples.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }

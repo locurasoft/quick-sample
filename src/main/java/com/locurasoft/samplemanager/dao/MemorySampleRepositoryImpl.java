@@ -16,7 +16,7 @@ public class MemorySampleRepositoryImpl implements ISampleRepository {
     }
 
     @Override
-    public List<Sample> findSamplesByName(String name) {
+    public List<Sample> findByName(String name) {
         return sampleList.stream().filter(s -> s.getName().contains(name)).collect(Collectors.toList());
     }
 
@@ -50,12 +50,12 @@ public class MemorySampleRepositoryImpl implements ISampleRepository {
     }
 
     @Override
-    public boolean exists(Sample sample) {
+    public boolean existsByFileHash(String fileHash) {
         return false;
     }
 
     @Override
-    public Sample findBySample(Sample sample) {
+    public Sample findByFileHash(String fileHash) {
         return null;
     }
 

@@ -2,12 +2,9 @@ package com.locurasoft.samplemanager.domain;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
-import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -34,6 +31,7 @@ public class Sample {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String filePath;
+    @ElementCollection
     private List<String> tags;
     private Settings.Category category;
     private String name;
@@ -97,8 +95,8 @@ public class Sample {
             return false;
         }
         Sample sample = (Sample) o;
-        return Objects.equals(name, sample.name) &&
-                Objects.equals(fileHash, sample.fileHash);
+        return Objects.equals(name, sample.name)
+                && Objects.equals(fileHash, sample.fileHash);
     }
 
     @Override
