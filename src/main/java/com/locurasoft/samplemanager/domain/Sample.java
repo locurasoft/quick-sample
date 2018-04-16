@@ -4,7 +4,11 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,22 +19,11 @@ import java.util.Objects;
 @Component("sample")
 public class Sample {
 
-    public static class Factory {
-        public static Sample newSample(File file) throws IOException {
-            Sample sample = new Sample();
-            sample.setFilePath(file.getAbsolutePath());
-            sample.setName(file.getName());
-            FileInputStream fileInputStream = new FileInputStream(file);
-            sample.setFileHash(DigestUtils.md5Hex(IOUtils.toByteArray(fileInputStream)));
-            fileInputStream.close();
-            return sample;
-        }
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String filePath;
+
     @ElementCollection
     private List<String> tags;
     private Settings.Category category;
@@ -45,7 +38,7 @@ public class Sample {
         return filePath;
     }
 
-    public void setFilePath(String filePath) {
+    void setFilePath(String filePath) {
         this.filePath = filePath;
     }
 
@@ -69,7 +62,7 @@ public class Sample {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
@@ -77,7 +70,7 @@ public class Sample {
         return fileHash;
     }
 
-    public void setFileHash(String fileHash) {
+    void setFileHash(String fileHash) {
         this.fileHash = fileHash;
     }
 

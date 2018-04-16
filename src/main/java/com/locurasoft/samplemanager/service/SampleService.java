@@ -3,6 +3,7 @@ package com.locurasoft.samplemanager.service;
 import com.locurasoft.samplemanager.dao.ISampleRepository;
 import com.locurasoft.samplemanager.domain.ISettings;
 import com.locurasoft.samplemanager.domain.Sample;
+import com.locurasoft.samplemanager.domain.SampleFactory;
 import com.locurasoft.samplemanager.domain.analyzer.ISampleAnalyzer;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,14 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-import static com.locurasoft.samplemanager.domain.Sample.Factory.newSample;
-
 @Component("sampleService")
 public class SampleService implements ISampleService {
 
     @Autowired
     private ISampleRepository sampleRepository;
+
+    @Autowired
+    private SampleFactory sampleFactory;
 
     @Autowired
     private ISettings settings;
@@ -33,10 +35,9 @@ public class SampleService implements ISampleService {
             File directory = new File(pathString);
             if (directory.exists() && directory.isDirectory()) {
                 Iterator<File> iterator = FileUtils.iterateFiles(directory, fileEndings, true);
-                int i = 0;
                 while (iterator.hasNext()) {
                     File file = iterator.next();
-                    Sample sample = newSample(file);
+                    Sample sample = sampleFactory.newInstance(file);
                     if (sampleRepository.existsByFileHash(sample.getFileHash())) {
                         sample = sampleRepository.findByFileHash(sample.getFileHash());
                     } else {
@@ -46,10 +47,6 @@ public class SampleService implements ISampleService {
                     for (ISampleAnalyzer analyzer : analyzers) {
                         analyzer.updateSample(sample);
                     }
-                    if (i == 3) {
-                        break;
-                    }
-                    i++;
                 }
             }
         }
@@ -61,12 +58,15 @@ public class SampleService implements ISampleService {
         return sampleRepository.findAll();
     }
 
-    public void setSampleRepository(ISampleRepository sampleRepository) {
+    void setSampleRepository(ISampleRepository sampleRepository) {
         this.sampleRepository = sampleRepository;
     }
 
-    public void setSettings(ISettings settings) {
+    void setSettings(ISettings settings) {
         this.settings = settings;
     }
 
+    void setSampleFactory(SampleFactory sampleFactory) {
+        this.sampleFactory = sampleFactory;
+    }
 }

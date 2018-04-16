@@ -22,9 +22,8 @@
         <property name="packagesToScan" value="com.locurasoft.samplemanager.domain"/>
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.dialect">SQLITE</prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">false</prop>
                 <prop key="hibernate.hbm2ddl.auto">validate</prop>
                 <prop key="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</prop>
             </props>
@@ -61,6 +60,7 @@
         </property>
     </bean>
 
+    <bean id="sampleFactory" class="com.locurasoft.samplemanager.domain.SampleFactory"/>
     <bean id="categorySampleAnalyzer" class="com.locurasoft.samplemanager.domain.analyzer.CategorySampleAnalyzer"/>
     <bean id="sampleService" class="com.locurasoft.samplemanager.service.SampleService"/>
     <bean id="mainController" class="com.locurasoft.samplemanager.controller.MainController"/>
