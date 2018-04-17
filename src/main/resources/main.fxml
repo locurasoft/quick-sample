@@ -1,23 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.locurasoft.samplemanager.controller.MainController">
     <MenuBar VBox.vgrow="NEVER">
@@ -51,35 +36,16 @@
             <MenuItem mnemonicParsing="false" text="About MyHelloApp"/>
         </Menu>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane VBox.vgrow="ALWAYS">
         <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;"
-               text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+               text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f">
             <font>
                 <Font size="18.0"/>
             </font>
         </Label>
         <BorderPane prefHeight="442.0" prefWidth="732.0">
             <left>
-                <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                    <Accordion>
-                        <panes>
-                            <TitledPane animated="false" text="Categories">
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                            prefWidth="200.0">
-                                    <ListView fx:id="categories" prefHeight="179.0" prefWidth="200.0"/>
-                                </AnchorPane>
-                            </TitledPane>
-                            <TitledPane animated="false" text="untitled 2">
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                            prefWidth="200.0"/>
-                            </TitledPane>
-                            <TitledPane animated="false" text="untitled 3">
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                                            prefWidth="200.0"/>
-                            </TitledPane>
-                        </panes>
-                    </Accordion>
-                </ScrollPane>
+                <fx:include fx:id="filter" source="filter.fxml"/>
             </left>
             <top>
                 <Pane prefHeight="73.0" prefWidth="732.0" BorderPane.alignment="CENTER">
@@ -89,15 +55,11 @@
                             text="%key.configure"/>
                     <Slider layoutX="565.0" layoutY="17.0" onDragDone="#volumeChange"/>
                     <Label layoutX="600.0" layoutY="41.0" text="%key.volume" textAlignment="CENTER"/>
-                    <TextField layoutX="393.0" layoutY="11.0" onAction="#filter"/>
-                    <Label layoutX="440.0" layoutY="41.0" text="%key.filter" textAlignment="CENTER"/>
                 </Pane>
             </top>
             <center>
-                <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-                        <ListView fx:id="samples" prefHeight="200.0" prefWidth="200.0"/>
-                    </AnchorPane>
+                <ScrollPane prefWidth="300.0" BorderPane.alignment="CENTER">
+                    <fx:include fx:id="sampleList" source="sampleList.fxml"/>
                 </ScrollPane>
             </center>
         </BorderPane>

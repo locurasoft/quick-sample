@@ -4,6 +4,7 @@ import com.locurasoft.samplemanager.dao.ISampleRepository;
 import com.locurasoft.samplemanager.domain.ISettings;
 import com.locurasoft.samplemanager.domain.Sample;
 import com.locurasoft.samplemanager.domain.SampleFactory;
+import com.locurasoft.samplemanager.domain.Settings;
 import com.locurasoft.samplemanager.domain.analyzer.ISampleAnalyzer;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +42,11 @@ public class SampleService implements ISampleService {
                     if (sampleRepository.existsByFileHash(sample.getFileHash())) {
                         sample = sampleRepository.findByFileHash(sample.getFileHash());
                     } else {
+                        for (ISampleAnalyzer analyzer : analyzers) {
+                            analyzer.updateSample(sample);
+                        }
                         sampleRepository.save(sample);
                         System.out.println("Saving sample " + sample.getName());
-                    }
-                    for (ISampleAnalyzer analyzer : analyzers) {
-                        analyzer.updateSample(sample);
                     }
                 }
             }
@@ -54,8 +55,17 @@ public class SampleService implements ISampleService {
     }
 
     @Override
-    public List<Sample> getSamples() {
+    public List<Sample> listAllSamples() {
         return sampleRepository.findAll();
+    }
+
+    @Override
+    public List<Sample> listSamplesByCategory(Settings.Category category) {
+        return sampleRepository.findByCategory(category);
+    }
+
+    public List<Sample> listSamplesByNameLike(String name) {
+        return sampleRepository.findByNameLike(String.format("%%%s%%", name));
     }
 
     void setSampleRepository(ISampleRepository sampleRepository) {
