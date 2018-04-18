@@ -1,17 +1,14 @@
 package com.locurasoft.samplemanager.domain;
 
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,11 +21,15 @@ public class Sample {
     private Long id;
     private String filePath;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> tags;
-    private Settings.Category category;
+    private Category category;
     private String name;
     private String fileHash;
+
+    public Sample() {
+        this.tags = new ArrayList<>();
+    }
 
     public Long getId() {
         return id;
@@ -50,11 +51,11 @@ public class Sample {
         this.tags = tags;
     }
 
-    public Settings.Category getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Settings.Category category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

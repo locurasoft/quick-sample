@@ -52,22 +52,4 @@ public class Settings implements ISettings {
         this.searchPaths = searchPaths;
     }
 
-    public enum Category {
-        Kicks("bd", "bassdrum", "bass drum"),
-        Snares("sd"),
-        Toms("tom"),
-        Hihats("hh"),
-        Cymbals("cym"),
-        Claps("cp");
-
-        private final String[] matches;
-
-        Category(String... matchesList) {
-            this.matches = matchesList;
-        }
-
-        public String[] getMatches() {
-            return matches.clone();
-        }
-    }
 }

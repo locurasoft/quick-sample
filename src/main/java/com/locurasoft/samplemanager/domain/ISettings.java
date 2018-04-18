@@ -7,7 +7,7 @@ import java.util.List;
 public interface ISettings {
     List<String> getCategoryStrings();
 
-    Settings.Category[] getCategories();
+    Category[] getCategories();
 
     List<ISampleAnalyzer> getAnalyzers();
 

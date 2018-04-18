@@ -1,7 +1,7 @@
 package com.locurasoft.samplemanager.dao;
 
+import com.locurasoft.samplemanager.domain.Category;
 import com.locurasoft.samplemanager.domain.Sample;
-import com.locurasoft.samplemanager.domain.Settings;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +12,7 @@ public interface ISampleRepository extends CrudRepository<Sample, String> {
     List<Sample> findByName(String name);
     List<Sample> findByNameLike(String name);
 
-    List<Sample> findByCategory(Settings.Category category);
+    List<Sample> findByCategory(Category category);
     List<Sample> findAll();
 
     boolean existsByFileHash(String fileHash);

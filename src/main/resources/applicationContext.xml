@@ -60,13 +60,10 @@
         </property>
     </bean>
 
-    <bean id="observableSampleListFactory" class="com.locurasoft.samplemanager.domain.ObservableSampleListFactory"/>
+    <bean id="observableSample" class="com.locurasoft.samplemanager.domain.ObservableSample"/>
+    <bean id="observableSampleList" class="com.locurasoft.samplemanager.domain.ObservableSampleList"/>
     <bean id="sampleFactory" class="com.locurasoft.samplemanager.domain.SampleFactory"/>
     <bean id="categorySampleAnalyzer" class="com.locurasoft.samplemanager.domain.analyzer.CategorySampleAnalyzer"/>
     <bean id="sampleService" class="com.locurasoft.samplemanager.service.SampleService"/>
     <bean id="mainController" class="com.locurasoft.samplemanager.controller.MainController"/>
-    <bean id="filterController" class="com.locurasoft.samplemanager.controller.FilterController"/>
-    <bean id="sampleListController" class="com.locurasoft.samplemanager.controller.SampleListController"/>
-    <bean id="sampleDetailController" class="com.locurasoft.samplemanager.controller.SampleDetailController"/>
-
 </beans>
