@@ -13,5 +13,5 @@ public interface ISampleService {
 
     List<Sample> listSamplesByNameLike(String name);
 
-    void updateCategory(Sample sample, String category);
+    void saveSample(Sample sample);
 }

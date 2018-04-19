@@ -69,12 +69,7 @@ public class SampleService implements ISampleService {
     }
 
     @Override
-    public void updateCategory(Sample sample, String category) {
-        if (category.isEmpty()) {
-            sample.setCategory(null);
-        } else {
-            sample.setCategory(Category.valueOf(category));
-        }
+    public void saveSample(Sample sample) {
         sampleRepository.save(sample);
     }
 

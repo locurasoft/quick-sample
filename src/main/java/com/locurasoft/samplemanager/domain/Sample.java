@@ -1,5 +1,8 @@
 package com.locurasoft.samplemanager.domain;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.ElementCollection;
@@ -11,6 +14,8 @@ import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static javafx.collections.FXCollections.observableArrayList;
 
 @Entity
 @Component("sample")
@@ -73,6 +78,22 @@ public class Sample {
 
     void setFileHash(String fileHash) {
         this.fileHash = fileHash;
+    }
+
+    public SimpleStringProperty getFilePathObservable() {
+        return new SimpleStringProperty(filePath);
+    }
+
+    public ObservableList<String> getTagsObservable() {
+        return observableArrayList(tags);
+    }
+
+    public SimpleObjectProperty<Category> getCategoryObservable() {
+        return new SimpleObjectProperty<Category>(category);
+    }
+
+    public SimpleStringProperty getNameObservable() {
+        return new SimpleStringProperty(name);
     }
 
     @Override

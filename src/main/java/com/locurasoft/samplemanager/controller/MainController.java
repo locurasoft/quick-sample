@@ -3,8 +3,6 @@ package com.locurasoft.samplemanager.controller;
 
 import com.locurasoft.samplemanager.domain.Category;
 import com.locurasoft.samplemanager.domain.ISettings;
-import com.locurasoft.samplemanager.domain.ObservableSample;
-import com.locurasoft.samplemanager.domain.ObservableSampleList;
 import com.locurasoft.samplemanager.domain.Sample;
 import com.locurasoft.samplemanager.service.ISampleService;
 import javafx.collections.ObservableList;
@@ -44,9 +42,6 @@ public final class MainController {
     private Label sampleFilenameLabel;
 
     @Autowired
-    private ObservableSampleList sampleList;
-
-    @Autowired
     private ISampleService sampleService;
 
     @Autowired
@@ -58,27 +53,44 @@ public final class MainController {
     @FXML
     private TextField filterTextField;
 
-    @Autowired
-    private ObservableSample sampleDetail;
     @FXML
     private ListView<Sample> sampleListView;
 
+    private ObservableList<Sample> sampleList;
+    private Sample selectedSample;
+
     @FXML
     public void initialize() {
+        sampleList = observableArrayList();
         initCategories();
         initSampleList();
         initSampleDetail();
     }
 
     void initSampleDetail() {
-        sampleFilenameLabel.textProperty().bindBidirectional(sampleDetail.getName());
-        sampleFilepathLabel.textProperty().bindBidirectional(sampleDetail.getFilePath());
-        ObservableList<String> categoryList = observableArrayList();
-        categoryList.add("");
-        categoryList.addAll(asList(Category.getNames()));
+        ObservableList<Category> categoryList = observableArrayList();
+        categoryList.add(null);
+        categoryList.addAll(asList(Category.values()));
         sampleCategoryCombo.setItems(categoryList);
-        sampleCategoryCombo.valueProperty().bindBidirectional(sampleDetail.getCategory());
-        sampleTagsListView.setItems(sampleDetail.getTags());
+    }
+
+    void clearSelectedSample() {
+        selectedSample = null;
+        sampleFilenameLabel.setText("");
+        sampleFilepathLabel.setText("");
+        sampleCategoryCombo.setValue(null);
+        sampleTagsListView.setItems(observableArrayList());
+    }
+
+    void selectSample(Sample sample) {
+        if (selectedSample != null) {
+            sampleService.saveSample(selectedSample);
+        }
+        selectedSample = sample;
+        sampleFilenameLabel.textProperty().bindBidirectional(sample.getNameObservable());
+        sampleFilepathLabel.textProperty().bindBidirectional(sample.getFilePathObservable());
+        sampleCategoryCombo.valueProperty().bindBidirectional(sample.getCategoryObservable());
+        sampleTagsListView.setItems(sample.getTagsObservable());
     }
 
     void initSampleList() {
@@ -104,20 +116,18 @@ public final class MainController {
                         if (samplesSelectionModel.getSelectedIndices().contains(index)
                                 && (samplesSelectionModel.getSelectedIndices().size() == 1 || event.isControlDown())) {
                             samplesSelectionModel.clearSelection(index);
-                            sampleDetail.clearSample();
+                            clearSelectedSample();
                         } else if (samplesSelectionModel.getSelectedIndices().contains(index)) {
                             samplesSelectionModel.clearSelection();
                             samplesSelectionModel.select(index);
-                            sampleDetail.clearSample();
-                            sampleDetail.setSample(sampleList.get(index));
+                            selectSample(sampleList.get(index));
                         } else if (event.isControlDown()) {
                             samplesSelectionModel.select(index);
-                            sampleDetail.clearSample();
+                            clearSelectedSample();
                         } else {
                             samplesSelectionModel.clearSelection();
                             samplesSelectionModel.select(index);
-                            sampleDetail.clearSample();
-                            sampleDetail.setSample(sampleList.get(index));
+                            selectSample(sampleList.get(index));
                         }
                         event.consume();
                     }
@@ -144,11 +154,11 @@ public final class MainController {
                     int index = cell.getIndex();
                     if (selectionModel.getSelectedIndices().contains(index)) {
                         selectionModel.clearSelection(index);
-                        sampleList.clearAndAddAll(sampleService.listAllSamples());
+                        sampleList.setAll(sampleService.listAllSamples());
 
                     } else {
                         selectionModel.select(index);
-                        sampleList.clearAndAddAll(sampleService.listSamplesByCategory(
+                        sampleList.setAll(sampleService.listSamplesByCategory(
                                 Category.valueOf(cell.textProperty().getValue())));
                     }
                     event.consume();
@@ -165,13 +175,13 @@ public final class MainController {
         } else {
             samples = sampleService.listSamplesByNameLike(filterTextField.getText());
         }
-        sampleList.clearAndAddAll(samples);
+        sampleList.setAll(samples);
     }
 
     public void onRescan(ActionEvent actionEvent) {
         try {
             List<Sample> samples = sampleService.scanSamples();
-            sampleList.clearAndAddAll(samples);
+            sampleList.setAll(samples);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -183,12 +193,6 @@ public final class MainController {
 
     public void onVolumeChange(DragEvent dragEvent) {
 
-    }
-
-    public void onCategoryChanged(ActionEvent actionEvent) {
-        if (sampleDetail.isActive()) {
-            sampleService.updateCategory(sampleDetail.getSample(), (String) sampleCategoryCombo.getValue());
-        }
     }
 
     void setSampleService(ISampleService sampleService) {
@@ -203,20 +207,12 @@ public final class MainController {
         this.categoriesListView = categoriesListView;
     }
 
-    void setSampleList(ObservableSampleList sampleList) {
-        this.sampleList = sampleList;
-    }
-
     void setFilterTextField(TextField filterTextField) {
         this.filterTextField = filterTextField;
     }
 
     void setSampleListView(ListView<Sample> sampleListView) {
         this.sampleListView = sampleListView;
-    }
-
-    void setSampleDetail(ObservableSample sampleDetail) {
-        this.sampleDetail = sampleDetail;
     }
 
     void setSampleCategoryCombo(ComboBox sampleCategoryCombo) {
