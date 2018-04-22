@@ -8,12 +8,21 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class SpringFxmlLoader {
-    private static final ApplicationContext applicationContext =
+    private static final ApplicationContext APPLICATION_CONTEXT =
             new ClassPathXmlApplicationContext("applicationContext.xml");
 
+    private final FXMLLoader loader;
+
+    public SpringFxmlLoader() {
+        loader = new FXMLLoader();
+        loader.setControllerFactory(APPLICATION_CONTEXT::getBean);
+    }
+
+    public <T> T getController() {
+        return loader.getController();
+    }
+
     public Object load(String url, String resources) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setControllerFactory(applicationContext::getBean);
         loader.setLocation(getClass().getResource(url));
         loader.setResources(ResourceBundle.getBundle(resources));
         try {
@@ -23,4 +32,6 @@ public class SpringFxmlLoader {
         }
         return null;
     }
+
+
 }

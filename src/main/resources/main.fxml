@@ -121,7 +121,8 @@
                         <ComboBox fx:id="sampleCategoryCombo" prefWidth="150.0" GridPane.columnIndex="1"
                                   GridPane.rowIndex="2"/>
                         <Label text="%key.tags" GridPane.rowIndex="3"/>
-                        <ListView fx:id="sampleTagsListView" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1"
+                                    GridPane.rowIndex="3" fx:id="tagsPane"/>
                         <padding>
                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                         </padding>

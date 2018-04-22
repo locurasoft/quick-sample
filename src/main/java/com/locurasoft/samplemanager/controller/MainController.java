@@ -15,8 +15,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,11 +35,16 @@ import static javafx.collections.FXCollections.observableList;
 
 public final class MainController {
 
-    @FXML
-    private ComboBox sampleCategoryCombo;
+    public static final int BUTTON_HEIGHT = 20;
+    public static final int TAGS_SPACING = 10;
+    //little image as 15x15 for example
+    private Image deletePng = new Image("/delete.png");
 
     @FXML
-    private ListView sampleTagsListView;
+    private AnchorPane tagsPane;
+
+    @FXML
+    private ComboBox<Category> sampleCategoryCombo;
 
     @FXML
     private Label sampleFilepathLabel;
@@ -74,12 +85,42 @@ public final class MainController {
         sampleCategoryCombo.setItems(categoryList);
     }
 
+    //box is the pane where this buttons will be placed
+    void tagButton(HBox box, String tag) {
+        ImageView closeImg = new ImageView(deletePng);
+        HBox button = new HBox();
+        button.setStyle("-fx-padding:4;"
+                + "        -fx-border-width: 2;"
+                + "        -fx-border-color: black;"
+                + "        -fx-border-radius: 4;"
+                + "        -fx-background-color: f1f1f1;"
+                + "        -fx-border-insets: 5;");
+        button.setPrefHeight(BUTTON_HEIGHT);
+        button.getChildren().addAll(new Label(tag), closeImg);
+
+        closeImg.setOnMouseClicked(event -> {
+            box.getChildren().remove(button);
+            selectedSample.getTags().remove(tag);
+        });
+        button.setOnMouseClicked(event -> {
+        });
+
+        box.getChildren().add(button);
+    }
+
+    public void onApplicationExit() {
+        if (selectedSample != null) {
+            sampleService.saveSample(selectedSample);
+        }
+    }
+
     void clearSelectedSample() {
         selectedSample = null;
         sampleFilenameLabel.setText("");
         sampleFilepathLabel.setText("");
         sampleCategoryCombo.setValue(null);
-        sampleTagsListView.setItems(observableArrayList());
+        tagsPane.getChildren().clear();
+        tagsPane.getChildren().add(new BorderPane());
     }
 
     void selectSample(Sample sample) {
@@ -90,7 +131,31 @@ public final class MainController {
         sampleFilenameLabel.textProperty().bindBidirectional(sample.getNameObservable());
         sampleFilepathLabel.textProperty().bindBidirectional(sample.getFilePathObservable());
         sampleCategoryCombo.valueProperty().bindBidirectional(sample.getCategoryObservable());
-        sampleTagsListView.setItems(sample.getTagsObservable());
+
+        BorderPane tagsRoot = new BorderPane();
+        HBox tagsBox = new HBox(TAGS_SPACING);
+        tagsBox.setStyle("-fx-border-color: #F1F1F1;"
+                + "          -fx-border-width: 1px;"
+                + "          -fx-border-radius: 10;"
+                + "          -fx-border-insets: 5");
+        tagsRoot.setBottom(tagsBox);
+
+        TextField textField = new TextField();
+        textField.setPromptText("Tag name - ENTER to add");
+        textField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                tagButton(tagsBox, textField.getText());
+                selectedSample.getTags().add(textField.getText());
+                textField.clear();
+            }
+        });
+
+        for (String tag : selectedSample.getTags()) {
+            tagButton(tagsBox, tag);
+        }
+        tagsRoot.setTop(textField);
+        tagsPane.getChildren().clear();
+        tagsPane.getChildren().add(tagsRoot);
     }
 
     void initSampleList() {
@@ -102,9 +167,12 @@ public final class MainController {
                 ListCell<Sample> cell = new ListCell<Sample>() {
 
                     @Override
-                    public void updateItem(Sample item, boolean bln) {
-                        super.updateItem(item, bln);
-                        if (item != null) {
+                    public void updateItem(Sample item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty || item == null) {
+                            setText(null);
+                            setGraphic(null);
+                        } else {
                             setText(item.getName());
                         }
                     }
@@ -140,7 +208,6 @@ public final class MainController {
         sampleListView.setItems(sampleList);
         sampleListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
-
 
     void initCategories() {
         categoriesListView.setItems(observableList(settings.getCategoryStrings()));
@@ -215,12 +282,8 @@ public final class MainController {
         this.sampleListView = sampleListView;
     }
 
-    void setSampleCategoryCombo(ComboBox sampleCategoryCombo) {
+    void setSampleCategoryCombo(ComboBox<Category> sampleCategoryCombo) {
         this.sampleCategoryCombo = sampleCategoryCombo;
-    }
-
-    void setSampleTagsListView(ListView sampleTagsListView) {
-        this.sampleTagsListView = sampleTagsListView;
     }
 
     void setSampleFilepathLabel(Label sampleFilepathLabel) {
@@ -229,5 +292,9 @@ public final class MainController {
 
     void setSampleFilenameLabel(Label sampleFilenameLabel) {
         this.sampleFilenameLabel = sampleFilenameLabel;
+    }
+
+    void setTagsPane(AnchorPane tagsPane) {
+        this.tagsPane = tagsPane;
     }
 }
